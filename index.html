@@ -1,182 +1,87 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Convite — Ceia de Natal</title>
-  <meta name="description" content="Convite interativo para a Ceia de Natal: endereço no Maps + amigo secreto com sorteio por e-mail." />
-  <link rel="stylesheet" href="./styles.css" />
+  <meta charset="UTF-8" />
+  <title>Convite – Ceia de Natal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!-- SKY / INTRO -->
-  <main id="intro" class="intro" aria-label="Introdução">
-    <div class="sky">
-      <div class="stars"></div>
-      <div class="glow"></div>
+
+<!-- BOTÃO ADMIN (DISCRETO) -->
+<button id="adminBtn">Admin</button>
+
+<!-- ESTRELA DE BELÉM -->
+<div id="estrela-container">
+  <div id="estrela"></div>
+  <div id="cauda"></div>
+</div>
+
+<main class="container" id="conteudo">
+  <span class="tag">🎄 Noite de Natal</span>
+
+  <h1>Você está convidado!</h1>
+
+  <blockquote>
+    “Porque um menino nos nasceu, um filho se nos deu.”
+    <small>Isaías 9:6</small>
+  </blockquote>
+
+  <p class="intro">
+    É com alegria que convidamos você e sua família para nossa Ceia de Natal.
+  </p>
+
+  <section class="cards">
+    <!-- LOCAL -->
+    <div class="card">
+      <h2>📍 Local & Horário</h2>
+      <p><strong>24/12/2025</strong> — a partir das <strong>18h</strong></p>
+
+      <p>
+        Rua Desembargador Túlio Bezerra de Melo, 3720<br />
+        Condomínio Corais do Alto da Candelária – Apto 602<br />
+        CEP 59064-585 – Candelária – Natal/RN
+      </p>
+
+      <a
+        class="maps"
+        href="https://www.google.com/maps/search/?api=1&query=Rua+Desembargador+Túlio+Bezerra+de+Melo,+3720,+Natal+RN"
+        target="_blank"
+      >
+        Abrir no Google Maps
+      </a>
     </div>
 
-    <div class="intro-center">
-      <div class="title-wrap">
-        <div class="kicker">Uma noite especial está chegando…</div>
-        <h1 class="headline">Ceia de Natal</h1>
-        <p class="sub">Toque na estrela para abrir o convite</p>
-      </div>
+    <!-- AMIGO SECRETO -->
+    <div class="card">
+      <h2>🎁 Amigo Secreto</h2>
 
-      <button id="starBtn" class="starBtn" aria-label="Abrir convite">
-        <svg class="star" viewBox="0 0 200 200" role="img" aria-label="Estrela de Natal">
-          <defs>
-            <filter id="softGlow">
-              <feGaussianBlur stdDeviation="6" result="blur"/>
-              <feMerge>
-                <feMergeNode in="blur"/>
-                <feMergeNode in="SourceGraphic"/>
-              </feMerge>
-            </filter>
-          </defs>
-          <path filter="url(#softGlow)"
-            d="M100 12 L122 74 L188 78 L136 118 L154 182 L100 146 L46 182 L64 118 L12 78 L78 74 Z"
-            class="starPath"/>
-        </svg>
-        <span class="tapHint">Toque</span>
-      </button>
+      <p>
+        Cadastre-se até <strong>17/12/2025 às 11:00</strong><br />
+        (Pode ter mãe/filho no mesmo e-mail)
+      </p>
 
-      <div class="music-row">
-        <button id="musicBtn" class="pill" type="button" aria-pressed="false">
-          🔈 Música natalina
-        </button>
-        <span class="tiny">*A música começa após seu toque (regra do celular).</span>
-      </div>
+      <div class="contador" id="contador"></div>
+
+      <form id="form">
+        <input type="text" placeholder="Nome" required />
+        <input type="email" placeholder="E-mail (pode ser compartilhado)" required />
+        <input type="text" placeholder="Dica de presente (opcional)" />
+        <button type="submit">Cadastrar no amigo secreto</button>
+      </form>
+
+      <small class="info">
+        Se a pessoa se cadastrar novamente com o mesmo e-mail, os dados são atualizados.
+      </small>
     </div>
-  </main>
-
-  <!-- CONTENT -->
-  <section id="content" class="content hidden" aria-label="Conteúdo do convite">
-    <header class="hero">
-      <div class="hero-inner">
-        <div class="badge">🎄 Noite de Natal</div>
-        <h2 class="hero-title">Você está convidado!</h2>
-
-        <blockquote class="verse">
-          “Porque um menino nos nasceu,<br/>
-          um filho se nos deu.”
-          <footer>— Isaías 9:6</footer>
-        </blockquote>
-
-        <p class="hero-text">
-          É com alegria que convidamos você e sua família para nossa <strong>Ceia de Natal</strong>.
-        </p>
-      </div>
-    </header>
-
-    <div class="cards">
-      <!-- MAP CARD -->
-      <button id="mapCard" class="card card-click" type="button" aria-label="Abrir endereço no Google Maps">
-        <div class="card-icon">📍</div>
-        <div class="card-body">
-          <div class="card-title">Local & horário</div>
-          <div class="card-text">
-            🕕 <strong>24/12/2025 — a partir das 18h</strong><br/><br/>
-            Rua Desembargador Túlio Bezerra de Melo, 3720<br/>
-            Condomínio Corais do Alto da Candelária — Apto 602<br/>
-            CEP 59064-585 — Candelária (Natal/RN)
-          </div>
-          <div class="card-cta">Abrir no Google Maps</div>
-        </div>
-      </button>
-
-      <!-- SECRET SANTA CARD -->
-      <div class="card">
-        <div class="card-icon">🎅</div>
-        <div class="card-body">
-          <div class="card-title">Amigo secreto</div>
-          <div class="card-text">
-            Cadastre-se até <strong>17/12/2025 às 11:00</strong> (horário de Natal/RN).<br/>
-            <small>(Pode ter mãe/filho no mesmo e-mail — cadastre um por vez.)</small>
-          </div>
-
-          <div class="countdown" aria-label="Contador regressivo">
-            <div class="timeBox"><div id="dd" class="num">--</div><div class="lbl">dias</div></div>
-            <div class="timeBox"><div id="hh" class="num">--</div><div class="lbl">horas</div></div>
-            <div class="timeBox"><div id="mm" class="num">--</div><div class="lbl">min</div></div>
-            <div class="timeBox"><div id="ss" class="num">--</div><div class="lbl">seg</div></div>
-          </div>
-
-          <div id="closedMsg" class="closed hidden">
-            🎄 O prazo encerrou. O sorteio será realizado e os e-mails serão enviados em breve.
-          </div>
-
-          <form id="secretForm" class="form" autocomplete="on">
-            <!-- honeypot anti-bot -->
-            <input type="text" name="company" id="company" class="hp" tabindex="-1" autocomplete="off" />
-
-            <label>
-              Nome
-              <input name="name" id="name" required minlength="2" placeholder="Nome da pessoa que vai participar" />
-            </label>
-
-            <label>
-              E-mail (pode ser compartilhado)
-              <input name="email" id="email" type="email" required placeholder="email@exemplo.com" />
-            </label>
-
-            <label>
-              Dica de presente (opcional)
-              <input name="hint" id="hint" maxlength="80" placeholder="Ex.: gosta de café e chocolate" />
-            </label>
-
-            <button id="submitBtn" class="btn" type="submit">
-              ✅ Cadastrar no amigo secreto
-            </button>
-
-            <div id="formMsg" class="msg" role="status" aria-live="polite"></div>
-            <div class="tiny">Se a mesma pessoa recadastrar com o mesmo nome+e-mail, atualizamos os dados.</div>
-          </form>
-        </div>
-      </div>
-    </div>
-
-    <footer id="footer" class="footer">
-      <div>✨ Que esta noite seja cheia de luz, paz e alegria.</div>
-      <div class="tiny">Dica: toque 5x aqui rapidamente para abrir o painel.</div>
-    </footer>
   </section>
 
-  <!-- ADMIN PANEL (hidden) -->
-  <div id="adminOverlay" class="adminOverlay hidden" role="dialog" aria-modal="true" aria-label="Painel Admin">
-    <div class="adminCard">
-      <div class="adminHeader">
-        <div class="adminTitle">🎛️ Painel Admin</div>
-        <button id="adminClose" class="adminClose" aria-label="Fechar">✕</button>
-      </div>
+  <footer>
+    ✨ Que esta noite seja cheia de luz, paz e alegria.
+  </footer>
+</main>
 
-      <div class="adminBody">
-        <label class="adminLabel">
-          Token (ADMIN_TOKEN)
-          <input id="adminToken" class="adminInput" placeholder="Cole aqui o token do admin" />
-        </label>
-
-        <div class="adminActions">
-          <button id="adminRefresh" class="adminBtn" type="button">🔄 Atualizar status</button>
-          <button id="adminDryRun" class="adminBtn" type="button">🧪 Simular sorteio (sem e-mail)</button>
-          <button id="adminRunDraw" class="adminBtn adminBtnGold" type="button">📧 Rodar sorteio (ENVIAR e-mails)</button>
-          <button id="adminReset" class="adminBtn adminBtnDanger" type="button">🧹 Zerar cadastro</button>
-        </div>
-
-        <pre id="adminOutput" class="adminOutput">Toque 5x no rodapé para abrir este painel.
-Depois cole o ADMIN_TOKEN e use os botões acima.</pre>
-
-        <div class="tiny">
-          • “Simular” não envia e-mails.<br/>
-          • “Rodar sorteio” envia e-mails via SendGrid (use só em testes controlados).
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <script src="./app.js"></script>
-  <!-- Botão Admin -->
-  <button id="adminBtn" class="admin-btn">
-    🔐 Painel Admin
-  </button>
+<script src="app.js"></script>
 </body>
 </html>
