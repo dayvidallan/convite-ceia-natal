@@ -1,87 +1,135 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <title>Convite – Ceia de Natal</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Convite — Ceia de Natal</title>
+  <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
+  <!-- Céu (fundo) -->
+  <canvas id="sky" aria-hidden="true"></canvas>
 
-<!-- BOTÃO ADMIN (DISCRETO) -->
-<button id="adminBtn">Admin</button>
+  <!-- Botão admin discreto (não é para convidados) -->
+  <button id="adminBtn" class="admin-btn" type="button" title="Painel Admin">admin</button>
 
-<!-- ESTRELA DE BELÉM -->
-<div id="estrela-container">
-  <div id="estrela"></div>
-  <div id="cauda"></div>
-</div>
+  <main class="wrap">
+    <section class="hero card">
+      <div class="pill">🎄 Noite de Natal</div>
+      <h1>Você está convidado!</h1>
 
-<main class="container" id="conteudo">
-  <span class="tag">🎄 Noite de Natal</span>
+      <blockquote class="verse">
+        “Porque um menino nos nasceu,<br/> um filho se nos deu.”
+        <span>— Isaías 9:6</span>
+      </blockquote>
 
-  <h1>Você está convidado!</h1>
-
-  <blockquote>
-    “Porque um menino nos nasceu, um filho se nos deu.”
-    <small>Isaías 9:6</small>
-  </blockquote>
-
-  <p class="intro">
-    É com alegria que convidamos você e sua família para nossa Ceia de Natal.
-  </p>
-
-  <section class="cards">
-    <!-- LOCAL -->
-    <div class="card">
-      <h2>📍 Local & Horário</h2>
-      <p><strong>24/12/2025</strong> — a partir das <strong>18h</strong></p>
-
-      <p>
-        Rua Desembargador Túlio Bezerra de Melo, 3720<br />
-        Condomínio Corais do Alto da Candelária – Apto 602<br />
-        CEP 59064-585 – Candelária – Natal/RN
+      <p class="subtitle">
+        É com alegria que convidamos você e sua família para nossa <strong>Ceia de Natal</strong>.
       </p>
+    </section>
 
-      <a
-        class="maps"
-        href="https://www.google.com/maps/search/?api=1&query=Rua+Desembargador+Túlio+Bezerra+de+Melo,+3720,+Natal+RN"
-        target="_blank"
-      >
-        Abrir no Google Maps
-      </a>
+    <section class="grid">
+      <article class="card">
+        <div class="card-title">
+          <span class="icon">📍</span>
+          <div>
+            <h2>Local & horário</h2>
+            <p class="muted">24/12/2025 — a partir das 18h</p>
+          </div>
+        </div>
+
+        <div class="addr">
+          Rua Desembargador Túlio Bezerra de Melo, 3720<br/>
+          Condomínio Corais do Alto da Candelária — Apto 602<br/>
+          CEP 59064-585 — Candelária (Natal/RN)
+        </div>
+
+        <a class="link" target="_blank" rel="noopener"
+           href="https://www.google.com/maps/search/?api=1&query=Rua%20Desembargador%20T%C3%BAlio%20Bezerra%20de%20Melo%2C%203720%20Natal%20RN">
+          Abrir no Google Maps
+        </a>
+      </article>
+
+      <article id="amigo" class="card">
+        <div class="card-title">
+          <span class="icon">🎁</span>
+          <div>
+            <h2>Amigo secreto</h2>
+            <p class="muted">
+              Cadastre-se até <strong>17/12/2025 às 11:00</strong> (horário de Natal/RN).
+              <br/>
+              <small>(Pode ter mãe/filho no mesmo e-mail — cadastre um por vez.)</small>
+            </p>
+          </div>
+        </div>
+
+        <div class="countdown" id="countdown" aria-live="polite">
+          <div class="cd"><b id="d">--</b><span>dias</span></div>
+          <div class="cd"><b id="h">--</b><span>horas</span></div>
+          <div class="cd"><b id="m">--</b><span>min</span></div>
+          <div class="cd"><b id="s">--</b><span>seg</span></div>
+        </div>
+
+        <form id="form" class="form" autocomplete="on">
+          <label>
+            Nome
+            <input id="name" required placeholder="Nome da pessoa que vai participar" />
+          </label>
+
+          <label>
+            E-mail (pode ser compartilhado)
+            <input id="email" type="email" required placeholder="email@exemplo.com" />
+          </label>
+
+          <label>
+            Dica de presente (opcional)
+            <input id="hint" placeholder="Ex.: gosta de café e chocolate" />
+          </label>
+
+          <button id="submit" type="submit">✅ Cadastrar no amigo secreto</button>
+          <p id="msg" class="msg" role="status"></p>
+
+          <p class="tiny">
+            Se a mesma pessoa recadastrar com o mesmo nome+e-mail, atualizamos os dados.
+          </p>
+        </form>
+      </article>
+    </section>
+
+    <footer class="footer">
+      ✨ Que esta noite seja cheia de luz, paz e alegria.
+      <div class="tiny">Dica (admin): use o botão “admin” no topo esquerdo.</div>
+    </footer>
+  </main>
+
+  <!-- Modal Admin -->
+  <dialog id="adminModal" class="modal">
+    <div class="modal-head">
+      <h3>🔒 Painel Admin</h3>
+      <button id="closeAdmin" class="x" type="button">✕</button>
     </div>
 
-    <!-- AMIGO SECRETO -->
-    <div class="card">
-      <h2>🎁 Amigo Secreto</h2>
+    <div class="modal-body">
+      <label class="stack">
+        Token admin
+        <input id="adminToken" type="password" placeholder="Cole o ADMIN_TOKEN aqui" />
+        <small class="muted">Esse token é o mesmo que você colocou no Netlify como variável ADMIN_TOKEN.</small>
+      </label>
 
-      <p>
-        Cadastre-se até <strong>17/12/2025 às 11:00</strong><br />
-        (Pode ter mãe/filho no mesmo e-mail)
+      <div class="actions">
+        <button id="btnStatus" type="button">📊 Status</button>
+        <button id="btnSimular" type="button">🧪 Simular sorteio</button>
+        <button id="btnEnviar" type="button">📧 Sortear e enviar e-mails</button>
+        <button id="btnReset" type="button" class="danger">🧹 Zerar cadastros (TESTES)</button>
+      </div>
+
+      <pre id="adminOut" class="out"></pre>
+      <p class="tiny muted">
+        Observação: “Zerar cadastros” apaga os participantes salvos (ideal para limpar após testes).
       </p>
-
-      <div class="contador" id="contador"></div>
-
-      <form id="form">
-        <input type="text" placeholder="Nome" required />
-        <input type="email" placeholder="E-mail (pode ser compartilhado)" required />
-        <input type="text" placeholder="Dica de presente (opcional)" />
-        <button type="submit">Cadastrar no amigo secreto</button>
-      </form>
-
-      <small class="info">
-        Se a pessoa se cadastrar novamente com o mesmo e-mail, os dados são atualizados.
-      </small>
     </div>
-  </section>
+  </dialog>
 
-  <footer>
-    ✨ Que esta noite seja cheia de luz, paz e alegria.
-  </footer>
-</main>
-
-<script src="app.js"></script>
+  <script src="./app.js"></script>
 </body>
 </html>
