@@ -358,3 +358,23 @@ input:focus{ border-color: rgba(246,210,122,.35); box-shadow: 0 0 0 3px rgba(246
 }
 
 .hp{ position:absolute; left:-9999px; opacity:0; height:0; width:0; }
+
+.admin-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(255, 215, 0, 0.15);
+  color: #ffd700;
+  border: 1px solid rgba(255, 215, 0, 0.4);
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 13px;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  z-index: 9999;
+  transition: all 0.3s ease;
+}
+
+.admin-btn:hover {
+  background: rgba(255, 215, 0, 0.35);
+}

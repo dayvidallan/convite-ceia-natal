@@ -303,3 +303,13 @@ adminReset.addEventListener("click", async () => {
     adminOutput.textContent = "⚠️ " + e.message;
   }
 });
+document.getElementById("adminBtn")?.addEventListener("click", () => {
+  const senha = prompt("Digite a senha do painel admin:");
+
+  if (senha === "Natal2025@Admin") {
+    document.getElementById("adminPanel").style.display = "block";
+    alert("Painel admin liberado 🎄");
+  } else {
+    alert("Senha incorreta ❌");
+  }
+});
